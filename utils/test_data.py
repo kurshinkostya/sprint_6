@@ -12,27 +12,27 @@ class YaScooterHomePageFAQ:
 class YaScooterOrderPageData:
     data_sets = {
         'data_set1': {
-            'first_name': 'Тест',
-            'last_name': 'Тестовна',
-            'address': 'Доставочная улица',
-            'subway_name': 'Беговая',
+            'first_name': 'Рик',
+            'last_name': 'Санчес',
+            'address': 'Пушкина улица',
+            'subway_name': 'Колотушкино',
             'telepthone_number': '79164136022',
-            'date': '19.02.2024',
+            'date': '29.09.2025',
             'rental_period': 0,
             'color': [0],
-            'comment_for_courier': 'Буду в черной куртке и черной кепке',
+            'comment_for_courier': 'Буду с племянником',
             'description': 'Корректные данные'
         },
         'data_set2':
-            {'first_name': 'Тестовая',
-             'last_name': 'Тестенко',
-             'address': 'Самокатная улица',
+            {'first_name': 'Ник',
+             'last_name': 'Сик',
+             'address': 'Савельева улица',
              'subway_name': 'Лубянка',
              'telepthone_number': '89776545277',
-             'date': '20.02.2024',
+             'date': '29.09.2025',
              'rental_period': 1,
              'color': [0, 1],
-             'comment_for_courier': 'Предпочтительно синий самокат',
+             'comment_for_courier': 'Предпочтительно желтый самокат',
              'description': 'Корректные данные'
              },
     }
