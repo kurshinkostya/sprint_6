@@ -27,25 +27,3 @@
      - Ошибка для неккоректного Номера телефона
 
 
----
-### О репозитиории 
-#### В директории [utils](utils) лежат треубемые для тестов [Локаторы](utils/locators.py), [Тестовые данные user-a](utils/test_data.py) ,[urls](utils/urls.py).
-
-#### В директории [pages](pages) лежат actions [Общие](pages/base_page.py), [для "Домашней страницы"](pages/home_page.py), [для "Страницы заказа самоката"](pages/order_page.py)
-
-### Тестовый Фреймворк 
-- pytest / selenium / allure
----
-
-Перед работой с репозиторием требуется установить зависимости 
-``` shell
-pip3 install -r requirements.txt
-```
-Запустить все тесты из директории tests
-```shell
-pytest tests --alluredir=allure_results
-```
-Посмотреть отчет в веб версии пройденного прогона
-``` shell
-allure serve allure_results
-```
