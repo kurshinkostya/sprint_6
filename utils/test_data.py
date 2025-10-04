@@ -35,3 +35,4 @@ class YaScooterOrderPageData:
              'comment_for_courier': 'Предпочтительно желтый самокат',
              'description': 'Корректные данные'
              },
+    }
