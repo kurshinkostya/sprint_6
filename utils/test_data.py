@@ -8,31 +8,40 @@ class YaScooterHomePageFAQ:
     answer7 = "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои."
     answer8 = "Да, обязательно. Всем самокатов! И Москве, и Московской области."
 
-
 class YaScooterOrderPageData:
+    # позитивные тесты
     data_sets = {
         'data_set1': {
             'first_name': 'Рик',
             'last_name': 'Санчес',
             'address': 'Астрологическая улица',
             'subway_name': 'Беговая',
-            'telepthone_number': '79325689302',
+            "telephone": '79325689302',
             'date': '02.10.2025',
             'rental_period': 0,
             'color': [0],
             'comment_for_courier': 'Буду с племянником',
             'description': 'Корректные данные'
         },
-        'data_set2':
-            {'first_name': 'Морти',
-             'last_name': 'Смит',
-             'address': 'Марсианская улица',
-             'subway_name': 'Лубянка',
-             'telepthone_number': '89676359452',
-             'date': '03.10.2025',
-             'rental_period': 1,
-             'color': [0, 1],
-             'comment_for_courier': 'Предпочтительно желтый самокат',
-             'description': 'Корректные данные'
-             },
+        'data_set2': {
+            'first_name': 'Морти',
+            'last_name': 'Смит',
+            'address': 'Марсианская улица',
+            'subway_name': 'Лубянка',
+            "telephone": '89676359452',
+            'date': '03.10.2025',
+            'rental_period': 1,
+            'color': [0, 1],
+            'comment_for_courier': 'Предпочтительно желтый самокат',
+            'description': 'Корректные данные'
+        }
+    }
+
+    # негативные тесты
+    invalid_inputs = {
+        "first_name": "Вqw",
+        "last_name": "Вqw",
+        "address": "Вqw",
+        "telephone": "Вqw",
+        "empty_subway": ""
     }
