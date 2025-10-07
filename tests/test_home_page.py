@@ -1,49 +1,41 @@
+import pytest
 import allure
-from utils.urls import Urls
 from pages.home_page import YaScooterHomePage
+from pages.order_page import YaScooterOrderPage
+from utils.urls import Urls
+from utils.test_data import YaScooterOrderPageData as order_data
 
+@allure.epic("Домашняя страница")
+@allure.suite("Флоу заказа с главной страницы")
+class TestYaScooterFullOrderFlow:
 
-@allure.epic('Эпик_Upgrade Main page / ui usability')
-@allure.parent_suite('Parent_suite_Домашняя страница')
-@allure.suite('Suite_Header')
-class TestYaScooterHomePage:
+    @pytest.mark.parametrize("button", ["top", "bottom"])
+    @pytest.mark.parametrize("data_set", ["data_set1", "data_set2"])
+    @allure.title("Полный флоу заказа через {button} кнопку с набором данных {data_set}")
+    def test_full_order_flow_from_home(self, driver, button, data_set):
+        home_page = YaScooterHomePage(driver)
+        order_page = YaScooterOrderPage(driver)
 
-    @allure.feature('Переход к форме "Оформление заказа" из Домашней страницы')
-    @allure.story('Переход к "Оформление заказа" по кнопке "Заказать" из header')
-    @allure.title('Нажатия на кнопку "Заказать" в header.')
-    @allure.description('Проверка что, на домашней странице в header по кнопке "Заказать", '
-                        'просходит корректный переход на страницу "Оформления заказа".')
-    def test_click_top_order_button_show_order_page(self, driver):
-        ya_scooter_home_page = YaScooterHomePage(driver)
-        ya_scooter_home_page.go_to_site()
-        ya_scooter_home_page.click_cookie_accept()
-        ya_scooter_home_page.click_top_order_button()
-        assert ya_scooter_home_page.current_url() == Urls.ORDER_PAGE
+        home_page.go_to_site()
+        home_page.click_cookie_accept()
 
-    @allure.feature('Переход к форме "Оформление заказа" из Домашней страницы')
-    @allure.story('Переход к "Оформление заказа" по кнопке "Заказать" из блока "Как это работает"')
-    @allure.title('Нажатие на кнопку "Заказать", в блоке "Как это работает".')
-    @allure.description('Проверка что, на домашней странице в блоке "Как это работает" по кнопке "Заказать", '
-                        'просходит корректный переход на страницу "Оформления заказа".')
-    def test_click_bottom_order_button_show_order_page(self, driver):
-        ya_scooter_home_page = YaScooterHomePage(driver)
-        ya_scooter_home_page.go_to_site()
-        ya_scooter_home_page.click_cookie_accept()
-        ya_scooter_home_page.click_bottom_order_button()
+        if button == "top":
+            home_page.click_top_order_button()
+        else:
+            home_page.click_bottom_order_button()
 
-        assert ya_scooter_home_page.current_url() == Urls.ORDER_PAGE
+        # проверка перехода на страницу заказа
+        assert order_page.current_url() == Urls.ORDER_PAGE
 
-    @allure.feature('Переход на страницу "ЯндексДзен" из Домашней страницы')
-    @allure.story("Редирект на страницу ЯндексДзен по кнопке logo в header")
-    @allure.title('При нажатии на лого "ЯндексСамокат" происходит редирект на страницу "ЯндексДзен"')
-    @allure.description('Проверка что, на домашней странице в header по кнопке "ЯндексСамокат" '
-                        'происходит корреткный редирект на страницу "ЯндексДзен".')
-    def test_click_yandex_button_go_to_yandex(self, driver):
-        ya_scooter_home_page = YaScooterHomePage(driver)
-        ya_scooter_home_page.go_to_site()
-        ya_scooter_home_page.click_cookie_accept()
-        ya_scooter_home_page.click_yandex_button()
-        ya_scooter_home_page.switch_window(1)
-        ya_scooter_home_page.wait_url_until_not_about_blank()
-        current_url = ya_scooter_home_page.current_url()
-        assert (Urls.YANDEX_HOME_PAGE in current_url) or (Urls.DZEN_HOME_PAGE in current_url) or (Urls.YANDEX_CAPTCHA_PAGE in current_url)
+        # заполнение данных пользователя
+        order_page.fill_user_data(order_data.data_sets[data_set])
+        order_page.go_next()
+
+        # заполнение данных аренды
+        order_page.fill_rent_data(order_data.data_sets[data_set])
+
+        # заказ и получение номера
+        order_page.click_order()
+        order_page.click_accept_order()
+        order_number = order_page.get_order_number()
+        assert order_number, "Номер заказа не получен"
